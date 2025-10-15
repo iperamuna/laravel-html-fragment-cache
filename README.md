@@ -162,6 +162,53 @@ class ProductController extends Controller
 
 Perfect for caching expensive Livewire component rendering:
 
+### Using the Trait (Recommended)
+
+```php
+<?php
+
+namespace App\Livewire\Dashboard;
+
+use App\Models\Product;
+use Illuminate\Support\HtmlString;
+use Iperamuna\HtmlFragmentCache\Concerns\Livewire\CachesRenderedHtml;
+use Livewire\Component;
+use Livewire\Livewire;
+
+class ActiveProducts extends Component
+{
+    use CachesRenderedHtml;
+
+    public function render()
+    {
+        // This will short-circuit on cache hit. The closure only runs on a cache MISS.
+        return $this->renderCached(function () {
+            // Query (only on cache miss)
+            $products = Product::all();
+
+            // Render each row ONCE into HTML (only when building cache)
+            $items = $products->map(
+                fn ($p) => Livewire::mount('dashboard.active-product', ['product' => $p])
+            )->implode('');
+
+            // Render your dashboard-section wrapper and inject the items into the slot
+            return view('components.dashboard-section', [
+                'title' => 'Active Products',
+                'url'   => url('/dashboard/products'),
+            ])->with('slot', new HtmlString($items));
+        },
+            // optional overrides (you can omit these to fully rely on config defaults)
+            identifier: 'organization:'. auth()->user()->current_organization_id,                       // null → resolve via config (customer/org)
+            variant: 'dashboard_active_products',   // bucket
+            version: 'v1',                          // bump on markup change
+            ttl: '6 hours'                          // or int/DateInterval
+        );
+    }
+}
+```
+
+### Using the Facade
+
 ```php
 <?php
 
@@ -224,9 +271,6 @@ The package provides interactive Artisan commands for cache management:
 ```bash
 # Interactive cache management
 php artisan fragment-cache:forget
-
-# Inspect cache store configuration
-php artisan fragment-cache:inspect-store
 ```
 
 The `fragment-cache:forget` command provides three modes:
