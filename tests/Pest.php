@@ -1,14 +1,5 @@
 <?php
 
-use Orchestra\Testbench\TestCase as Orchestra;
-use Iperamuna\HtmlFragmentCache\HtmlFragmentCacheServiceProvider;
+use Tests\TestCase;
 
-uses(Orchestra::class)->in('Feature', 'Unit');
-
-/**
- * Setup Testbench
- */
-function getPackageProviders($app)
-{
-    return [HtmlFragmentCacheServiceProvider::class];
-}
+uses(TestCase::class)->in('Feature', 'Unit');
