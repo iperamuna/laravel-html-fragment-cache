@@ -1,0 +1,64 @@
+{
+  "name": "iperamuna/laravel-html-fragment-cache",
+  "description": "A lightweight, generic HTML fragment caching package for Laravel. Cache any rendered HTML by identifier with support for all Laravel cache drivers, Blade directives, and simple invalidation.",
+  "type": "library",
+  "keywords": [
+    "laravel",
+    "cache",
+    "html",
+    "fragment",
+    "blade",
+    "performance"
+  ],
+  "homepage": "https://github.com/iperamuna/laravel-html-fragment-cache",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Indunil Peramuna",
+      "email": "iperamuna@gmail.com",
+      "homepage": "https://github.com/iperamuna",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/iperamuna/laravel-html-fragment-cache/issues",
+    "source": "https://github.com/iperamuna/laravel-html-fragment-cache"
+  },
+  "require": {
+    "php": ">=8.2",
+    "illuminate/support": "^10.0 || ^11.0 || ^12.0",
+    "laravel/prompts": "^0.3.7"
+  },
+  "autoload": {
+    "psr-4": {
+      "Iperamuna\\HtmlFragmentCache\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Iperamuna\\HtmlFragmentCache\\HtmlFragmentCacheServiceProvider"
+      ],
+      "aliases": {
+        "FragmentCache": "Iperamuna\\HtmlFragmentCache\\Facades\\FragmentCache"
+      }
+    }
+  },
+  "require-dev": {
+    "orchestra/testbench": "^8.0 || ^9.0 || ^10.0",
+    "pestphp/pest": "^2.34",
+    "pestphp/pest-plugin-laravel": "^2.4"
+  },
+  "scripts": {
+    "test": "vendor/bin/pest",
+    "test-coverage": "vendor/bin/pest --coverage"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    },
+    "sort-packages": true
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
