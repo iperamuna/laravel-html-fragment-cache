@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] - 2024-01-XX
+
+### Added
+- Livewire trait example (`CachesRenderedHtml`) in README and examples documentation
+- Comprehensive Livewire integration examples with `renderCached()` method
+- Organization-based identifier examples for multi-tenant scenarios
+
+### Changed
+- Updated GitHub Actions workflows to use latest action versions (v4)
+- Improved documentation structure with recommended vs alternative approaches
+- Enhanced Livewire examples with real-world usage patterns
+
+### Removed
+- Removed `fragment-cache:inspect-store` command reference from documentation
+- Cleaned up documentation to focus on core functionality
+
+### Fixed
+- Fixed deprecated GitHub Actions workflow warnings
+- Updated `actions/upload-artifact` from v3 to v4
+- Updated `actions/cache` from v3 to v4
+
+## [1.0.0] - 2024-01-XX
+
 ### Added
 - Initial release of Laravel HTML Fragment Cache package
 - Support for all Laravel cache drivers (Redis, Memcached, Database, File, Array, DynamoDB, Octane)
@@ -17,6 +40,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Interactive Artisan commands for cache management
 - Livewire integration examples
 - Comprehensive test suite
+- Complete documentation and examples
+- Packagist distribution ready
 
 ### Features
 - Universal cache driver support without tag dependencies
@@ -25,10 +50,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automatic identifier resolution from route parameters and object properties
 - Cache store inspection and management commands
 - Laravel Prompts integration for interactive commands
-
-## [1.0.0] - 2024-01-XX
-
-### Added
-- Initial stable release
-- Complete documentation and examples
-- Packagist distribution ready
