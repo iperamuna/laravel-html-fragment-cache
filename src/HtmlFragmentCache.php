@@ -12,6 +12,11 @@ use DateTimeInterface;
 
 class HtmlFragmentCache
 {
+    public function isEnabled(): bool
+    {
+        return (bool) config('fragment-cache.enabled', true);
+    }
+
     protected function getCacheStore(): CacheRepository
     {
         $storeName = config('fragment-cache.cache_store', 'default');
@@ -31,6 +36,15 @@ class HtmlFragmentCache
         string $variant = 'html_fragment',
         string $version = 'v1'
     ): string {
+        // If caching is disabled, just execute the builder and return the result
+        if (!$this->isEnabled()) {
+            $html = $builder();
+            if ($html instanceof Htmlable) {
+                $html = $html->toHtml();
+            }
+            return (string) $html;
+        }
+
         $cache = $this->getCacheStore();
         $key  = $this->key($identifier, $variant, $version);
         $ttl = $this->normalizeTtl($ttl);
@@ -46,6 +60,11 @@ class HtmlFragmentCache
 
     public function forget(string $identifier, string $variant = 'html_fragment', string $version = 'v1'): void
     {
+        // If caching is disabled, there's nothing to forget
+        if (!$this->isEnabled()) {
+            return;
+        }
+
         $cache = $this->getCacheStore();
         $key = $this->key($identifier, $variant, $version);
         $cache->forget($key);

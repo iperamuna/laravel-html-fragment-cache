@@ -2,6 +2,9 @@
 
 return [
 
+    // Enable or disable fragment caching globally
+    'enabled' => env('FRAGMENT_CACHE_ENABLED', true),
+
     // Cache store to use for fragment caching (must be one from config/cache.php stores)
     'cache_store' => env('FRAGMENT_CACHE_STORE', 'default'),
 

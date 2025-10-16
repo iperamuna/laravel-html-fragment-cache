@@ -2,6 +2,42 @@
 
 This document provides practical examples of how to use Laravel HTML Fragment Cache in various scenarios.
 
+## Configuration Examples
+
+### Enabling/Disabling Caching
+
+```bash
+# .env file examples
+
+# Enable caching (default)
+FRAGMENT_CACHE_ENABLED=true
+
+# Disable caching (useful for development)
+FRAGMENT_CACHE_ENABLED=false
+
+# Use Redis for caching
+FRAGMENT_CACHE_STORE=redis
+
+# Use Database for caching
+FRAGMENT_CACHE_STORE=database
+```
+
+### Development vs Production Configuration
+
+```php
+// config/fragment-cache.php
+return [
+    // Disable in development, enable in production
+    'enabled' => env('FRAGMENT_CACHE_ENABLED', !app()->environment('local')),
+    
+    // Use array cache in development, Redis in production
+    'cache_store' => env('FRAGMENT_CACHE_STORE', app()->environment('local') ? 'array' : 'redis'),
+    
+    // Shorter TTL in development
+    'default_ttl' => env('FRAGMENT_CACHE_TTL', app()->environment('local') ? '5 minutes' : '6 hours'),
+];
+```
+
 ## Basic Controller Usage
 
 ```php

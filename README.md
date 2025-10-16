@@ -37,10 +37,11 @@ This will publish `config/fragment-cache.php` where you can customize the defaul
 
 ## Configuration
 
-The package uses Laravel's cache system and supports all cache drivers. You can configure which cache store to use:
+The package uses Laravel's cache system and supports all cache drivers. You can configure which cache store to use and enable/disable caching globally:
 
 ```bash
 # In your .env file
+FRAGMENT_CACHE_ENABLED=true
 FRAGMENT_CACHE_STORE=redis
 # or
 FRAGMENT_CACHE_STORE=memcached
@@ -54,6 +55,9 @@ FRAGMENT_CACHE_STORE=database
 ```php
 // config/fragment-cache.php
 return [
+    // Enable or disable fragment caching globally
+    'enabled' => env('FRAGMENT_CACHE_ENABLED', true),
+    
     // Cache store to use for fragment caching (must be one from config/cache.php stores)
     'cache_store' => env('FRAGMENT_CACHE_STORE', 'default'),
     
@@ -77,6 +81,24 @@ return [
     ],
 ];
 ```
+
+### Enabling/Disabling Caching
+
+You can globally enable or disable fragment caching using the `enabled` configuration option:
+
+```bash
+# Disable fragment caching (useful for development or debugging)
+FRAGMENT_CACHE_ENABLED=false
+
+# Enable fragment caching (default)
+FRAGMENT_CACHE_ENABLED=true
+```
+
+When caching is disabled:
+- All `rememberHtml()` calls will execute the builder function directly without caching
+- `forget()` calls will do nothing
+- Blade directives will render content directly without caching
+- This is useful for development, debugging, or when you want to temporarily disable caching
 
 ## Usage
 

@@ -54,7 +54,11 @@ class HtmlFragmentCacheServiceProvider extends ServiceProvider
         Blade::directive('endFragmentCache', function () {
             return "<?php "
                 . " \$__frag_html_raw = ob_get_clean(); "
-                . " echo app('iperamuna.fragment-cache')->rememberHtml(\$__frag_identifier, function() use (\$__frag_html_raw) { return \$__frag_html_raw; }); "
+                . " if (config('fragment-cache.enabled', true)) { "
+                . "     echo app('iperamuna.fragment-cache')->rememberHtml(\$__frag_identifier, function() use (\$__frag_html_raw) { return \$__frag_html_raw; }); "
+                . " } else { "
+                . "     echo \$__frag_html_raw; "
+                . " } "
                 . " unset(\$__frag_args, \$__frag_identifier, \$__frag_html_raw); ?>";
         });
     }

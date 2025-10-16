@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.2] - 2024-01-XX
+
+### Added
+- Global enable/disable configuration option (`FRAGMENT_CACHE_ENABLED`)
+- `isEnabled()` method to check caching status
+- Comprehensive tests for enabled/disabled functionality
+- Development vs production configuration examples
+
+### Changed
+- `rememberHtml()` method now bypasses caching when disabled
+- `forget()` method now does nothing when caching is disabled
+- Blade directive `@fragmentCache` now respects enabled setting
+- Enhanced documentation with enable/disable examples
+
+### Fixed
+- Improved error handling for null configuration values
+
 ## [1.0.1] - 2024-01-XX
 
 ### Added
